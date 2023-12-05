@@ -1,10 +1,13 @@
 <?php
 
-namespace src;
+namespace src\Helpers;
+
+use PDO;
+use PDOException;
 
 class DatabaseConnection
 {
-    public PDO $instance;
+    public ?PDO $instance = null;
 
     protected string $host;
 
@@ -16,26 +19,20 @@ class DatabaseConnection
 
     public function __construct()
     {
-        $this->instance = $this->setDatabaseConnection();
+        $this->setDatabaseVariables();
+        $this->instance = $this->getInstance();
     }
 
-    protected function setDatabaseConnection()
-    {
-        if (is_null($this->getInstance())) {
-            $this->createDatabaseConnection();
-        }
-    }
-
-    protected function createDatabaseConnection()
+    protected function createDatabaseConnection(): PDO
     {
         try {
-            $pdo = new PDO("mysql:host=$this->host;dbname=$this->dbname;charset=utf8mb4", $this->username, $this->password);
+            $pdo = new PDO("mysql:host=".$this->getHost().";dbname=".$this->getDbname().";charset=utf8mb4", $this->getUsername(), $this->getPassword());
 
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-            $this->setInstance($pdo);
+            return $pdo;
         } catch (PDOException $e) {
             // Handle connection errors
             die("Connection failed: " . $e->getMessage());
@@ -47,11 +44,24 @@ class DatabaseConnection
         return include_once(__DIR__ . '/../config/database.php');
     }
 
+    protected function setDatabaseVariables(): void
+    {
+        $config = $this->importDatabaseConfig()['mysql'];
+        $this->setHost($config['host']);
+        $this->setDbname($config['schema']);
+        $this->setUsername($config['user']);
+        $this->setPassword($config['password']);
+    }
+
     /**
      * @return PDO|void
      */
     public function getInstance(): PDO
     {
+        if (is_null($this->instance)) {
+            $this->setInstance($this->createDatabaseConnection());
+        }
+
         return $this->instance;
     }
 
