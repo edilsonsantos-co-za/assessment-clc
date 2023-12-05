@@ -5,7 +5,7 @@ namespace src\Helpers;
 use PDO;
 use PDOException;
 
-class DatabaseConnection
+class DatabaseHelper
 {
     public ?PDO $instance = null;
 
@@ -17,6 +17,8 @@ class DatabaseConnection
 
     protected string $password;
 
+    protected string $port;
+
     public function __construct()
     {
         $this->setDatabaseVariables();
@@ -26,7 +28,7 @@ class DatabaseConnection
     protected function createDatabaseConnection(): PDO
     {
         try {
-            $pdo = new PDO("mysql:host=".$this->getHost().";dbname=".$this->getDbname().";charset=utf8mb4", $this->getUsername(), $this->getPassword());
+            $pdo = new PDO("mysql:host=".$this->getHost().";port=".$this->getPort().";dbname=".$this->getDbname().";charset=utf8mb4", $this->getUsername(), $this->getPassword());
 
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -41,7 +43,7 @@ class DatabaseConnection
 
     protected static function importDatabaseConfig(): array
     {
-        return include_once(__DIR__ . '/../config/database.php');
+        return include_once(__DIR__ . '/../../config/database.php');
     }
 
     protected function setDatabaseVariables(): void
@@ -51,6 +53,7 @@ class DatabaseConnection
         $this->setDbname($config['schema']);
         $this->setUsername($config['user']);
         $this->setPassword($config['password']);
+        $this->setPort($config['port']);
     }
 
     /**
@@ -135,5 +138,15 @@ class DatabaseConnection
     public function setPassword(string $password): void
     {
         $this->password = $password;
+    }
+
+    public function getPort(): string
+    {
+        return $this->port;
+    }
+
+    public function setPort(string $port): void
+    {
+        $this->port = $port;
     }
 }

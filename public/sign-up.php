@@ -25,31 +25,28 @@
 <script src="./assets/js/demo-theme.min.js?1692870487"></script>
 <div class="page page-center">
     <div class="container container-tight py-4">
-        <form class="card card-md" action="./" method="get" autocomplete="off" novalidate>
+        <form id="signupForm" class="card card-md" action="../src/Controllers/signUpController.php" method="get" autocomplete="off" novalidate>
             <div class="card-body">
                 <h2 class="card-title text-center mb-4">Create new account</h2>
                 <div class="mb-3">
                     <label class="form-label">First Name</label>
-                    <input type="text" class="form-control" placeholder="First name">
+                    <input id="firstname" type="text" class="form-control" placeholder="First name">
+                    <div class="invalid-feedback">No First Name provided</div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Last Name</label>
-                    <input type="text" class="form-control" placeholder="Last name">
+                    <input id="lastname" type="text" class="form-control" placeholder="Last name">
+                    <div class="invalid-feedback">No Last Name provided</div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Username</label>
-                    <input type="email" class="form-control" placeholder="Enter email">
+                    <input id="username" type="email" class="form-control" placeholder="Enter email">
+                    <div class="invalid-feedback">No email address provided</div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Password</label>
-                    <div class="input-group input-group-flat">
-                        <input type="password" class="form-control"  placeholder="Password"  autocomplete="off">
-                        <span class="input-group-text">
-                  <a href="#" class="link-secondary" title="Show password" data-bs-toggle="tooltip"><!-- Download SVG icon from http://tabler-icons.io/i/eye -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
-                  </a>
-                </span>
-                    </div>
+                    <input id="password" type="password" class="form-control"  placeholder="Password">
+                    <div class="invalid-feedback">No password provided</div>
                 </div>
                 <div class="form-footer">
                     <button type="submit" class="btn btn-primary w-100">Create new account</button>
@@ -65,5 +62,86 @@
 <!-- Tabler Core -->
 <script src="./assets/js/tabler.min.js?1692870487" defer></script>
 <script src="./assets/js/demo.min.js?1692870487" defer></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#signupForm').submit(function (e) {
+            e.preventDefault();
+
+            var firstname = $('#firstname');
+            var lastname = $('#lastname');
+            var username = $('#username');
+            var password = $('#password');
+            var failed = false;
+
+            // Reset the classes
+            firstname.removeClass('is-invalid');
+            lastname.removeClass('is-invalid');
+            username.removeClass('is-invalid');
+            password.removeClass('is-invalid');
+
+            if (firstname.val() === '') {
+                // If validation fails, update the class to 'error'
+                firstname.addClass('is-invalid');
+                failed = true;
+            }
+
+            if (lastname.val() === '') {
+                // If validation fails, update the class to 'error'
+                lastname.addClass('is-invalid');
+                failed = true;
+            }
+
+            if (username.val() === '') {
+                // If validation fails, update the class to 'error'
+                username.addClass('is-invalid');
+                failed = true;
+            }
+
+            if (password.val() === '') {
+                // If validation fails, update the class to 'error'
+                password.addClass('is-invalid');
+                failed = true;
+            }
+
+            // Validate the password using a regular expression
+            var passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(.{8,})$/;
+
+            if (!passwordRegex.test(password.val())) {
+                // Display an error message
+                $('#passwordError').text('Password must be at least 8 characters long, contain at least 1 uppercase letter, and at least 1 special character.');
+            } else {
+                failed = true;
+                // Password is valid, you can submit the form or perform additional actions
+                $('#passwordError').text('');
+                // Uncomment the following line to submit the form
+                // $('#myForm').unbind('submit').submit();
+            }
+
+            // Get form data
+            var formData = {
+                'firstname': $('#firstname').val(),
+                'lastname': $('#lastname').val(),
+                'username': $('#username').val(),
+                'password': $('#password').val()
+            };
+
+            if (failed !== true) {
+                // You can submit the form using AJAX here
+                $.ajax({
+                    type: 'POST',
+                    url: 'sign-up-post.php',
+                    data: formData,
+                    success: function (response) {
+                        console.log(response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+        });
+    });
+</script>
 </body>
 </html>
