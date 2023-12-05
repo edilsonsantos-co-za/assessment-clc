@@ -33,20 +33,19 @@
 <script src="./assets/js/demo-theme.min.js?1692870487"></script>
 <div class="page page-center">
     <div class="container container-tight py-4">
-        <div class="text-center mb-4">
-            <a href="." class="navbar-brand navbar-brand-autodark">
-                <img src="./static/logo.svg" width="110" height="32" alt="Tabler" class="navbar-brand-image">
-            </a>
-        </div>
         <form class="card card-md" action="./" method="get" autocomplete="off" novalidate>
             <div class="card-body">
                 <h2 class="card-title text-center mb-4">Create new account</h2>
                 <div class="mb-3">
-                    <label class="form-label">Name</label>
-                    <input type="text" class="form-control" placeholder="Enter name">
+                    <label class="form-label">First Name</label>
+                    <input type="text" class="form-control" placeholder="First name">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Email address</label>
+                    <label class="form-label">Last Name</label>
+                    <input type="text" class="form-control" placeholder="Last name">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
                     <input type="email" class="form-control" placeholder="Enter email">
                 </div>
                 <div class="mb-3">
@@ -60,19 +59,13 @@
                 </span>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label class="form-check">
-                        <input type="checkbox" class="form-check-input"/>
-                        <span class="form-check-label">Agree the <a href="./terms-of-service.html" tabindex="-1">terms and policy</a>.</span>
-                    </label>
-                </div>
                 <div class="form-footer">
                     <button type="submit" class="btn btn-primary w-100">Create new account</button>
                 </div>
             </div>
         </form>
         <div class="text-center text-secondary mt-3">
-            Already have account? <a href="./sign-in.html" tabindex="-1">Sign in</a>
+            Already have account? <a href="./sign-in.php" tabindex="-1">Sign in</a>
         </div>
     </div>
 </div>
