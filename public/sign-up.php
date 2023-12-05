@@ -10,7 +10,6 @@
     <link href="./assets/css/tabler-flags.min.css?1692870487" rel="stylesheet"/>
     <link href="./assets/css/tabler-payments.min.css?1692870487" rel="stylesheet"/>
     <link href="./assets/css/tabler-vendors.min.css?1692870487" rel="stylesheet"/>
-    <link href="./assets/css/demo.min.css?1692870487" rel="stylesheet"/>
     <style>
         @import url('https://rsms.me/inter/inter.css');
         :root {
@@ -107,7 +106,6 @@
     </div>
 </div>
 <script src="./assets/js/tabler.min.js?1692870487" defer></script>
-<script src="./assets/js/demo.min.js?1692870487" defer></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="./assets/js/sign-up.js?169287087" defer></script>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>

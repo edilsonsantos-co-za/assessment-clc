@@ -1,6 +1,13 @@
 <?php
 session_start();
 
+// Check if the session variable exists
+if (!isset($_SESSION['username'])) {
+    // Redirect to another page
+    header("Location: sign-in.php");
+    exit();
+}
+
 require_once __DIR__ . "/../autoload.php";
 
 use src\Managers\ProgrammingLanguagesManager;
@@ -30,7 +37,6 @@ $currentUserVotes = $userVotesManager->checkIfUserHasVoted($userId);
     <link href="./assets/css/tabler-flags.min.css?1692870487" rel="stylesheet"/>
     <link href="./assets/css/tabler-payments.min.css?1692870487" rel="stylesheet"/>
     <link href="./assets/css/tabler-vendors.min.css?1692870487" rel="stylesheet"/>
-    <link href="./assets/css/demo.min.css?1692870487" rel="stylesheet"/>
     <style>
         @import url('https://rsms.me/inter/inter.css');
         :root {
@@ -198,7 +204,6 @@ $currentUserVotes = $userVotesManager->checkIfUserHasVoted($userId);
 <!-- Libs JS -->
 <!-- Tabler Core -->
 <script src="./assets/js/tabler.min.js?1692870487" defer></script>
-<script src="./assets/js/demo.min.js?1692870487" defer></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
 
