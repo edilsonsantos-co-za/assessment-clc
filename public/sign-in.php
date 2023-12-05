@@ -28,25 +28,16 @@
         <div class="card card-md">
             <div class="card-body">
                 <h2 class="h2 text-center mb-4">Login to your account</h2>
-                <form action="./" method="get" autocomplete="off" novalidate>
+                <form id="signinForm" action="#" method="get" autocomplete="off" novalidate>
                     <div class="mb-3">
-                        <label class="form-label">Username</label>
-                        <input type="email" class="form-control" placeholder="your@email.com" autocomplete="off">
+                        <label class="form-label">Email Address</label>
+                        <input id="username" type="email" class="form-control" placeholder="your@email.com" autocomplete="off">
+                        <div class="invalid-feedback">Must be a valid username</div>
                     </div>
                     <div class="mb-2">
-                        <label class="form-label">
-                            Password
-                            <span class="form-label-description">
-                            </span>
-                        </label>
-                        <div class="input-group input-group-flat">
-                            <input type="password" class="form-control"  placeholder="Your password"  autocomplete="off">
-                            <span class="input-group-text">
-                    <a href="#" class="link-secondary" title="Show password" data-bs-toggle="tooltip"><!-- Download SVG icon from http://tabler-icons.io/i/eye -->
-                      <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
-                    </a>
-                  </span>
-                        </div>
+                        <label class="form-label">Password</label>
+                        <input id="password" type="password" class="form-control"  placeholder="Your password"  autocomplete="off">
+                        <div class="invalid-feedback">Must be a valid password</div>
                     </div>
                     <div class="form-footer">
                         <button type="submit" class="btn btn-primary w-100">Sign in</button>
@@ -57,11 +48,36 @@
         <div class="text-center text-secondary mt-3">
             Don't have account yet? <a href="./sign-up.php" tabindex="-1">Sign up</a>
         </div>
+        <div class="modal modal-blur fade" id="modal-danger" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-status bg-danger"></div>
+                    <div class="modal-body text-center py-4">
+                        <!-- Download SVG icon from http://tabler-icons.io/i/alert-triangle -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.24 3.957l-8.422 14.06a1.989 1.989 0 0 0 1.7 2.983h16.845a1.989 1.989 0 0 0 1.7 -2.983l-8.423 -14.06a1.989 1.989 0 0 0 -3.4 0z" /><path d="M12 9v4" /><path d="M12 17h.01" /></svg>
+                        <h3>Warning</h3>
+                        <div id="modal-failure-message" class="text-secondary"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="w-100">
+                            <div class="row">
+                                <div class="col"><a href="#" class="btn w-100" data-bs-dismiss="modal">
+                                        Cancel
+                                    </a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <!-- Libs JS -->
 <!-- Tabler Core -->
 <script src="./assets/js/tabler.min.js?1692870487" defer></script>
 <script src="./assets/js/demo.min.js?1692870487" defer></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="./assets/js/sign-in.js?16928707" defer></script>
 </body>
 </html>

@@ -1,4 +1,6 @@
 <?php
+// Start or resume the session
+session_start();
 
 $results = [
         'PHP' => '10',
@@ -53,7 +55,7 @@ $hasntVoted = false;
         <div class="card card-md">
             <div class="card-body text-center py-4 p-sm-5">
                 <img src="./assets/static/illustrations/undraw_sign_in_e6hj.svg" height="120" class="mb-n2" alt="">
-                <h1 class="mt-5">Welcome {NAME}</h1>
+                <h1 class="mt-5">Welcome <?php echo $_SESSION['username'] ?></h1>
             </div>
             <div class="hr-text hr-text-center hr-text-spaceless">Voting data</div>
             <div class="card-body">

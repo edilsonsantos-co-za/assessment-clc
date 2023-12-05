@@ -41,19 +41,19 @@ if (true) {
     $password = $_POST['password'];
 
     $userManager = new UsersManager();
-    $userCheckResult = $userManager->checkUser($username);
+    $userCheckResult = $userManager->checkNewUser($username);
     if (!$userCheckResult) {
         $result = $userManager->addNewUser($username, $password);
         if (!$result) {
             $response = array(
                 'success' => false,
-                'message' => 'User add failed',
+                'message' => 'Adding new user failed',
             );
         }
     } else {
         $response = array(
             'success' => false,
-            'message' => 'Username already exists',
+            'message' => 'User with email address already exists',
         );
     }
 } else {

@@ -6,7 +6,7 @@ use PDO;
 
 class UsersManager extends AbstractManager
 {
-    public function checkUser($username): bool
+    public function checkNewUser(string $username): bool
     {
         $exists = false;
         $checkUserExists = $this->getDatabaseInstance()->prepare("SELECT id FROM user WHERE username = :username");
@@ -20,12 +20,28 @@ class UsersManager extends AbstractManager
         return $exists;
     }
 
+    public function checkExistingUser(string $username, string $password): bool
+    {
+        $valid = false;
+        $checkUserExists = $this->getDatabaseInstance()->prepare("SELECT password FROM user WHERE username = :username");
+        $checkUserExists->bindParam(":username", $username, PDO::PARAM_STR);
+        $checkUserExists->execute();
+        $results = $checkUserExists->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($results as $result) {
+            if ($result['password'] === md5(trim($password))) {
+                $valid = true;
+            }
+        }
+
+        return $valid;
+    }
+
     public function addNewUser(string $username, string $password): bool
     {
         $addedSuccessFully = false;
         $addNewUser = $this->getDatabaseInstance()->prepare("INSERT INTO user (username, password) VALUES (:username, :password)");
         $addNewUser->bindParam(":username", $username, PDO::PARAM_STR);
-        $hashedPassword = md5($password);
+        $hashedPassword = md5(trim($password));
         $addNewUser->bindParam(":password", $hashedPassword, PDO::PARAM_STR);
         if ($addNewUser->execute()) {
             $addedSuccessFully = true;

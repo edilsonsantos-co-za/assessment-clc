@@ -25,7 +25,7 @@
 <script src="./assets/js/demo-theme.min.js?1692870487"></script>
 <div class="page page-center">
     <div class="container container-tight py-4">
-        <form id="signupForm" class="card card-md" action="../src/Controllers/signUpController.php" method="get" autocomplete="off" novalidate>
+        <form id="signupForm" class="card card-md" action="#" method="get" autocomplete="off" novalidate>
             <div class="card-body">
                 <h2 class="card-title text-center mb-4">Create new account</h2>
                 <div class="mb-3">
@@ -39,7 +39,7 @@
                     <div class="invalid-feedback">Last Name invalid</div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Username</label>
+                    <label class="form-label">Email Address</label>
                     <input id="username" type="email" class="form-control" placeholder="Enter email">
                     <div class="invalid-feedback">Email address invalid</div>
                 </div>
