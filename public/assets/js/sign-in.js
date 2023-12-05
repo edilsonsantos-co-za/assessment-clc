@@ -35,7 +35,7 @@ $(document).ready(function () {
             // You can submit the form using AJAX here
             $.ajax({
                 type: 'POST',
-                url: 'sign-in-post.php',
+                url: 'sign-in-action.php',
                 data: formData,
                 success: function (response) {
                     console.log('Server response:', response);

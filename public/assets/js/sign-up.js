@@ -51,7 +51,7 @@ $(document).ready(function () {
             // You can submit the form using AJAX here
             $.ajax({
                 type: 'POST',
-                url: 'sign-up-post.php',
+                url: 'sign-up-action.php',
                 data: formData,
                 success: function (response) {
                     console.log('Server response:', response);

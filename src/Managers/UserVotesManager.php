@@ -7,7 +7,7 @@ use src\Managers\UsersManager;
 
 class UserVotesManager extends AbstractManager
 {
-    public function getAllVotesGroupedByProgrammingLanguage()
+    public function getAllVotesGroupedByProgrammingLanguage(): array
     {
         $userVotes = $this->getDatabaseInstance()->prepare("
         SELECT
@@ -23,5 +23,28 @@ class UserVotesManager extends AbstractManager
 
         $userVotes->execute();
         return $userVotes->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function checkIfUserHasVoted(int $userId): bool
+    {
+        $exists = false;
+        $checkUserExists = $this->getDatabaseInstance()->prepare("SELECT * FROM user_votes WHERE user_id = :userId");
+        $checkUserExists->bindParam(":userId", $userId, PDO::PARAM_STR);
+        $checkUserExists->execute();
+        $results = $checkUserExists->fetch(PDO::FETCH_ASSOC);
+        if (is_array($results)){
+            $exists = true;
+        }
+
+        return $exists;
+    }
+
+    public function vote(int $userId, string $languageID): void
+    {
+        $exists = false;
+        $checkUserExists = $this->getDatabaseInstance()->prepare("INSERT INTO user_votes (user_id, programming_languages_id) VALUES (:userId, :programming_languages_id)");
+        $checkUserExists->bindParam(":userId", $userId, PDO::PARAM_STR);
+        $checkUserExists->bindParam(":programming_languages_id", $languageID, PDO::PARAM_STR);
+        $checkUserExists->execute();
     }
 }
