@@ -26,7 +26,8 @@ $(document).ready(function () {
             failed = true;
         }
 
-        if (username.val() === '') {
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (username.val() === '' || !emailRegex.test(username.val())) {
             // If validation fails, update the class to 'error'
             username.addClass('is-invalid');
             failed = true;
@@ -53,8 +54,21 @@ $(document).ready(function () {
                 url: 'sign-up-post.php',
                 data: formData,
                 success: function (response) {
-                    if (!response) {
+                    console.log('Server response:', response);
 
+                    // Your handling logic here
+                    if (response.success) {
+                        var modal = new bootstrap.Modal(document.getElementById('modal-success'));
+                        modal.show();
+
+                        // Redirect to another page after the modal is fully shown
+                        $('#modal-success').on('hidden.bs.modal', function () {
+                            window.location.href = 'sign-in.php';
+                        });
+                    } else {
+                        document.getElementById('modal-failure-message').innerHTML = response.message;
+                        var modal = new bootstrap.Modal(document.getElementById('modal-danger'));
+                        modal.show();
                     }
                 },
                 error: function (xhr, status, error) {

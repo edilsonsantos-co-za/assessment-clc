@@ -19,7 +19,7 @@ $programmingLanguagesManager = new ProgrammingLanguagesManager();
 $languages = $programmingLanguagesManager->getProgrammingLanguages();
 
 $userVotesManager = new UserVotesManager();
-$userVotes = $userVotesManager->getUserVotes($_SESSION['user_id']);
+$userVotes = $userVotesManager->getUserVotes(0);
 
 $hasntVoted = false;
 ?>

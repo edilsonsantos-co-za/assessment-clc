@@ -6,23 +6,24 @@ use PDO;
 
 class UsersManager extends AbstractManager
 {
-    public static function checkUser($username): bool
+    public function checkUser($username): bool
     {
-        $checkUserExists = self::getDatabaseInstance()->prepare("SELECT id FROM user WHERE username = :username");
+        $exists = false;
+        $checkUserExists = $this->getDatabaseInstance()->prepare("SELECT id FROM user WHERE username = :username");
         $checkUserExists->bindParam(":username", $username, PDO::PARAM_STR);
         $checkUserExists->execute();
         $results = $checkUserExists->fetch(PDO::FETCH_ASSOC);
-        if ($results->rowCount() >= 1){
+        if (is_array($results)){
             $exists = true;
         }
 
         return $exists;
     }
 
-    public static function addNewUser(string $username, string $password): bool
+    public function addNewUser(string $username, string $password): bool
     {
         $addedSuccessFully = false;
-        $addNewUser = self::getDatabaseInstance()->prepare("INSERT INTO user (username, password) VALUES (:username, :password)");
+        $addNewUser = $this->getDatabaseInstance()->prepare("INSERT INTO user (username, password) VALUES (:username, :password)");
         $addNewUser->bindParam(":username", $username, PDO::PARAM_STR);
         $hashedPassword = md5($password);
         $addNewUser->bindParam(":password", $hashedPassword, PDO::PARAM_STR);

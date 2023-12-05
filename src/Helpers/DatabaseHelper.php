@@ -43,7 +43,7 @@ class DatabaseHelper
 
     protected static function importDatabaseConfig(): array
     {
-        return include_once(__DIR__ . '/../../config/database.php');
+        return require(__DIR__ . '/../../config/database.php');
     }
 
     protected function setDatabaseVariables(): void
