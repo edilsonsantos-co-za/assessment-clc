@@ -15,13 +15,17 @@ $results = [
 require_once __DIR__ . "/../autoload.php";
 
 use src\Managers\ProgrammingLanguagesManager;
+use src\Managers\UsersManager;
 use src\Managers\UserVotesManager;
 
 $programmingLanguagesManager = new ProgrammingLanguagesManager();
 $languages = $programmingLanguagesManager->getProgrammingLanguages();
 
+$usersManager = new UsersManager();
+$userId = $usersManager->getUserIdByUsername($_SESSION['username']);
+
 $userVotesManager = new UserVotesManager();
-$userVotes = $userVotesManager->getUserVotes(0);
+$userVotes = $userVotesManager->getAllVotesGroupedByProgrammingLanguage();
 
 $hasntVoted = false;
 ?>
@@ -60,22 +64,33 @@ $hasntVoted = false;
             <div class="hr-text hr-text-center hr-text-spaceless">Voting data</div>
             <div class="card-body">
                 <?php
-                foreach ($results as $key => $result) {
-                    echo "<div class='d-flex mb-2'>
-                    <div>{$key}</div>
-                    <div class='ms-auto'>
-                        <span class='text-green d-inline-flex align-items-center lh-1'>
-                          {$results[$key]}%
-                        </span>
-                    </div>
-                </div>
-                <div class='progress progress-sm'>
-                    <div class='progress-bar bg-primary' style='width: {$results[$key]}%' role='progressbar' aria-valuenow='{$results[$key]}' aria-valuemin='0' aria-valuemax='100' aria-label='{$results[$key]}% Complete'>
-                        <span class='visually-hidden'>{$results[$key]}% complete</span>
-                    </div>
-                </div>
-                <br />";
-                }
+                    if (count($userVotes) == 0) {
+                        ?>
+                        <div class="empty">
+                            <p class="empty-title">No results found</p>
+                            <p class="empty-subtitle text-secondary">
+                                No user has voted yet, be the first :-)
+                            </p>
+                        </div>
+                <?php
+                    } else {
+                        foreach ($userVotes as $userVote) {
+                            echo "<div class='d-flex mb-2'>
+                            <div>{$userVote['programming_language']}</div>
+                            <div class='ms-auto'>
+                            <span class='text-green d-inline-flex align-items-center lh-1'>
+                            ".(int) $userVote['percentage_of_votes']."%
+                            </span>
+                            </div>
+                            </div>
+                            <div class='progress progress-sm'>
+                            <div class='progress-bar bg-primary' style='width: {$userVote['percentage_of_votes']}%' role='progressbar' aria-valuenow='0' aria-valuemin='0' aria-valuemax='{$userVote['percentage_of_votes']}' aria-label='{{$userVote['percentage_of_votes']}}%'>
+                            <span class='visually-hidden'>{$userVote['percentage_of_votes']}%</span>
+                            </div>
+                            </div>
+                            <br />";
+                                }
+                    }
                 ?>
             </div>
         </div>

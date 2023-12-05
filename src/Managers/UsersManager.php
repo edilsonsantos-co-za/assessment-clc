@@ -49,4 +49,18 @@ class UsersManager extends AbstractManager
 
         return $addedSuccessFully;
     }
+
+    public function getUserIdByUsername(string $username): ?string
+    {
+        $result = null;
+        $checkUserExists = $this->getDatabaseInstance()->prepare("SELECT id FROM user WHERE username = :username");
+        $checkUserExists->bindParam(":username", $username, PDO::PARAM_STR);
+        $checkUserExists->execute();
+        $results = $checkUserExists->fetch(PDO::FETCH_ASSOC);
+        if (is_array($results)){
+            $result = $results['id'];
+        }
+
+        return $result;
+    }
 }
