@@ -3,71 +3,33 @@
 namespace src\Managers;
 
 use PDO;
-use src\Helpers\DatabaseHelper;
 
-class UsersManager
+class UsersManager extends AbstractManager
 {
-    protected static function getDatabaseInstance(): PDO
+    public static function checkUser($username): bool
     {
-        $dbConnection = new DatabaseHelper();
-        return $dbConnection->getInstance();
-    }
-
-    public static function checkUser($username): string
-    {
-        $txt = '';
-        // Prepare a select statement
-        $sql = "SELECT id FROM users WHERE username = :username";
-
-        if($stmt = self::getDatabaseInstance()->prepare($sql)){
-            // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
-
-            // Set parameters
-            $param_username = trim($username);
-
-            // Attempt to execute the prepared statement
-            if($stmt->execute()){
-                if($stmt->rowCount() == 1){
-                    $txt = "This username is already taken.";
-                } else{
-                    $txt = trim($username);
-                }
-            } else{
-                echo "Oops! Something went wrong. Please try again later.";
-            }
-
-            // Close statement
-            unset($stmt);
+        $checkUserExists = self::getDatabaseInstance()->prepare("SELECT id FROM user WHERE username = :username");
+        $checkUserExists->bindParam(":username", $username, PDO::PARAM_STR);
+        $checkUserExists->execute();
+        $results = $checkUserExists->fetch(PDO::FETCH_ASSOC);
+        if ($results->rowCount() >= 1){
+            $exists = true;
         }
 
-        return $txt;
+        return $exists;
     }
 
-    public static function addNewUser(string $username, string $password)
+    public static function addNewUser(string $username, string $password): bool
     {
-        // Prepare an insert statement
-        $sql = "INSERT INTO users (username, password) VALUES (:username, :password)";
-
-        if($stmt = self::getDatabaseInstance()->prepare($sql)){
-            // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
-            $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
-
-            // Set parameters
-            $param_username = $username;
-            $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
-
-            // Attempt to execute the prepared statement
-            if($stmt->execute()){
-                // Redirect to login page
-                header("location: ../../public/login.php");
-            } else{
-                echo "Oops! Something went wrong. Please try again later.";
-            }
-
-            // Close statement
-            unset($stmt);
+        $addedSuccessFully = false;
+        $addNewUser = self::getDatabaseInstance()->prepare("INSERT INTO user (username, password) VALUES (:username, :password)");
+        $addNewUser->bindParam(":username", $username, PDO::PARAM_STR);
+        $hashedPassword = md5($password);
+        $addNewUser->bindParam(":password", $hashedPassword, PDO::PARAM_STR);
+        if ($addNewUser->execute()) {
+            $addedSuccessFully = true;
         }
+
+        return $addedSuccessFully;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 $results = [
         'PHP' => '10',
         'C#' => '20',
@@ -7,6 +8,18 @@ $results = [
         'Python' => '50',
         'C++' => '60'
 ];
+
+// Include config file
+require_once __DIR__ . "/../autoload.php";
+
+use src\Managers\ProgrammingLanguagesManager;
+use src\Managers\UserVotesManager;
+
+$programmingLanguagesManager = new ProgrammingLanguagesManager();
+$languages = $programmingLanguagesManager->getProgrammingLanguages();
+
+$userVotesManager = new UserVotesManager();
+$userVotes = $userVotesManager->getUserVotes($_SESSION['user_id']);
 
 $hasntVoted = false;
 ?>
@@ -89,12 +102,13 @@ $hasntVoted = false;
                                 <div class="mb-3">
                                     <label class="form-label">What is your favourite coding language?</label>
                                     <select class="form-select mb-0">
-                                        <option value="DST">PHP</option>
-                                        <option value="U">C#</option>
-                                        <option value="HST">C</option>
-                                        <option value="HST">JAVA</option>
-                                        <option value="HST">Python</option>
-                                        <option value="HST">C++</option>
+                                        <?php
+                                        foreach ($languages as $language) {
+                                            ?>
+                                            <option value=""><?php echo $language['name'] ?></option>
+                                        <?php
+                                        }
+                                        ?>
                                     </select>
                                 </div>
                             </div>
