@@ -67,7 +67,10 @@ $hasntVoted = false;
         <div class="row align-items-center mt-3">
             <div class="col">
                 <div class="btn-list justify-content-end">
-                    <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-vote">
+                    <a href="sign-out.php" class="btn btn-link link-secondary">
+                        Sign Out
+                    </a>
+                    <a href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-vote">
                         Vote
                     </a>
                 </div>
