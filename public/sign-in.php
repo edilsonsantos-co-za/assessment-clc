@@ -76,6 +76,6 @@
 <!-- Tabler Core -->
 <script src="./assets/js/tabler.min.js?1692870487" defer></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="./assets/js/sign-in.js?16928707" defer></script>
+<script src="./assets/js/sign-in.js?1692870487" defer></script>
 </body>
 </html>

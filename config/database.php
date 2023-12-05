@@ -6,6 +6,6 @@ return [
         'schema' => 'test',
         'port' => 3306,
         'user' => 'root',
-        'password' => 'password'
+        'password' => 'mysql'
     ]
 ];

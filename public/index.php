@@ -1,9 +1,7 @@
 <?php
 session_start();
 
-// Check if the session variable exists
 if (!isset($_SESSION['username'])) {
-    // Redirect to another page
     header("Location: sign-in.php");
     exit();
 }
@@ -208,32 +206,23 @@ $currentUserVotes = $userVotesManager->checkIfUserHasVoted($userId);
 <script>
 
     $(document).ready(function () {
-        // Attach a click event handler to the button
         $('#vote').on('click', function () {
             var dropdown = document.getElementById("dropdown");
-
-            // Get the selected value
             var selectedValue = dropdown.options[dropdown.selectedIndex].value;
-
-            // Get form data
             var formData = {
                 'language': selectedValue
             };
 
-            // Perform the AJAX call
             $.ajax({
-                type: 'POST', // or 'POST' depending on your server-side endpoint
-                url: 'vote-action.php',  // Replace with your actual API endpoint
+                type: 'POST',
+                url: 'vote-action.php',
                 data: formData,
                 success: function (response) {
-                    // Handle the success response
                     $('#modal-success').on('hidden.bs.modal', function () {
-                        // Reload the page when the modal is closed
                         location.reload();
                     });
                 },
                 error: function (xhr, status, error) {
-                    // Handle the error response
                     console.error(error);
                 }
             });

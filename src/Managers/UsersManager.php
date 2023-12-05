@@ -6,6 +6,10 @@ use PDO;
 
 class UsersManager extends AbstractManager
 {
+    /**
+     * @param string $username
+     * @return bool
+     */
     public function checkNewUser(string $username): bool
     {
         $exists = false;
@@ -20,6 +24,11 @@ class UsersManager extends AbstractManager
         return $exists;
     }
 
+    /**
+     * @param string $username
+     * @param string $password
+     * @return bool
+     */
     public function checkExistingUser(string $username, string $password): bool
     {
         $valid = false;
@@ -36,6 +45,11 @@ class UsersManager extends AbstractManager
         return $valid;
     }
 
+    /**
+     * @param string $username
+     * @param string $password
+     * @return bool
+     */
     public function addNewUser(string $username, string $password): bool
     {
         $addedSuccessFully = false;
@@ -50,6 +64,10 @@ class UsersManager extends AbstractManager
         return $addedSuccessFully;
     }
 
+    /**
+     * @param string $username
+     * @return string|null
+     */
     public function getUserIdByUsername(string $username): ?string
     {
         $result = null;

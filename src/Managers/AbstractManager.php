@@ -7,6 +7,9 @@ use src\Helpers\DatabaseHelper;
 
 class AbstractManager implements ManagerInterface
 {
+    /**
+     * @return PDO
+     */
     public function getDatabaseInstance(): PDO
     {
         $dbConnection = new DatabaseHelper();

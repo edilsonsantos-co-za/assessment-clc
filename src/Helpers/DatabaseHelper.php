@@ -25,6 +25,9 @@ class DatabaseHelper
         $this->instance = $this->getInstance();
     }
 
+    /**
+     * @return PDO
+     */
     protected function createDatabaseConnection(): PDO
     {
         try {
@@ -41,11 +44,17 @@ class DatabaseHelper
         }
     }
 
+    /**
+     * @return array
+     */
     protected static function importDatabaseConfig(): array
     {
         return require(__DIR__ . '/../../config/database.php');
     }
 
+    /**
+     * @return void
+     */
     protected function setDatabaseVariables(): void
     {
         $config = $this->importDatabaseConfig()['mysql'];
@@ -140,11 +149,18 @@ class DatabaseHelper
         $this->password = $password;
     }
 
+    /**
+     * @return string
+     */
     public function getPort(): string
     {
         return $this->port;
     }
 
+    /**
+     * @param string $port
+     * @return void
+     */
     public function setPort(string $port): void
     {
         $this->port = $port;

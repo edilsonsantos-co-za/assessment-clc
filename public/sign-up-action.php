@@ -1,5 +1,4 @@
 <?php
-// Include config file
 require_once __DIR__ . "/../autoload.php";
 
 use src\Managers\UsersManager;
@@ -36,7 +35,6 @@ $response = array(
  * - check the recaptcha result $json_result['success']
  */
 if (true) {
-    // Retrieve POST data
     $username = $_POST['username'];
     $password = $_POST['password'];
 
@@ -63,6 +61,5 @@ if (true) {
     );
 }
 
-// Send the JSON response
 header('Content-Type: application/json');
 echo json_encode($response);

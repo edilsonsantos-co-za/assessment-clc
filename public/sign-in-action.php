@@ -1,13 +1,10 @@
 <?php
-// Start or resume the session
 session_start();
 
-// Include config file
 require_once __DIR__ . "/../autoload.php";
 
 use src\Managers\UsersManager;
 
-// Retrieve POST data
 $username = $_POST['username'];
 $password = $_POST['password'];
 
@@ -27,6 +24,5 @@ if (!$userCheckResult) {
 
 $_SESSION['username'] = $username;
 
-// Send the JSON response
 header('Content-Type: application/json');
 echo json_encode($response);

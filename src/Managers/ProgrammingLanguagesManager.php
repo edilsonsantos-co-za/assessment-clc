@@ -7,6 +7,9 @@ use src\Helpers\DatabaseHelper;
 
 class ProgrammingLanguagesManager extends AbstractManager
 {
+    /**
+     * @return array
+     */
     public function getProgrammingLanguages(): array
     {
         $programmingLanguages = $this->getDatabaseInstance()->prepare("SELECT * FROM programming_languages");

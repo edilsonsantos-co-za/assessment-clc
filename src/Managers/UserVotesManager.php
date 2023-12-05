@@ -7,6 +7,9 @@ use src\Managers\UsersManager;
 
 class UserVotesManager extends AbstractManager
 {
+    /**
+     * @return array
+     */
     public function getAllVotesGroupedByProgrammingLanguage(): array
     {
         $userVotes = $this->getDatabaseInstance()->prepare("
@@ -25,6 +28,10 @@ class UserVotesManager extends AbstractManager
         return $userVotes->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @param int $userId
+     * @return bool
+     */
     public function checkIfUserHasVoted(int $userId): bool
     {
         $exists = false;
@@ -39,6 +46,11 @@ class UserVotesManager extends AbstractManager
         return $exists;
     }
 
+    /**
+     * @param int $userId
+     * @param string $languageID
+     * @return void
+     */
     public function vote(int $userId, string $languageID): void
     {
         $exists = false;
