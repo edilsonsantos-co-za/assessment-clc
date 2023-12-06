@@ -14,7 +14,7 @@ $response = array(
 );
 
 $userManager = new UserVotesManager();
-$userCheckResult = $userManager->vote($userID, $languageID);
+$userManager->vote($userID, $languageID);
 
 header('Content-Type: application/json');
 echo json_encode($response);

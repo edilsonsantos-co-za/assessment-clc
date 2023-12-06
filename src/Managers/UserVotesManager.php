@@ -53,7 +53,6 @@ class UserVotesManager extends AbstractManager
      */
     public function vote(int $userId, string $languageID): void
     {
-        $exists = false;
         $checkUserExists = $this->getDatabaseInstance()->prepare("INSERT INTO user_votes (user_id, programming_languages_id) VALUES (:userId, :programming_languages_id)");
         $checkUserExists->bindParam(":userId", $userId, PDO::PARAM_STR);
         $checkUserExists->bindParam(":programming_languages_id", $languageID, PDO::PARAM_STR);

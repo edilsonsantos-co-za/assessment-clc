@@ -33,7 +33,6 @@ $currentUserVotes = $userVotesManager->checkIfUserHasVoted($userId);
     <!-- CSS files -->
     <link href="./assets/css/tabler.min.css?1692870487" rel="stylesheet"/>
     <link href="./assets/css/tabler-flags.min.css?1692870487" rel="stylesheet"/>
-    <link href="./assets/css/tabler-payments.min.css?1692870487" rel="stylesheet"/>
     <link href="./assets/css/tabler-vendors.min.css?1692870487" rel="stylesheet"/>
     <style>
         @import url('https://rsms.me/inter/inter.css');
@@ -46,7 +45,6 @@ $currentUserVotes = $userVotesManager->checkIfUserHasVoted($userId);
     </style>
 </head>
 <body  class=" d-flex flex-column">
-<script src="./assets/js/demo-theme.min.js?1692870487"></script>
 <div class="page page-center">
     <div class="container container-tight py-4">
         <div class="card card-md">
@@ -204,19 +202,15 @@ $currentUserVotes = $userVotesManager->checkIfUserHasVoted($userId);
 <script src="./assets/js/tabler.min.js?1692870487" defer></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-
     $(document).ready(function () {
         $('#vote').on('click', function () {
             var dropdown = document.getElementById("dropdown");
             var selectedValue = dropdown.options[dropdown.selectedIndex].value;
-            var formData = {
-                'language': selectedValue
-            };
 
             $.ajax({
                 type: 'POST',
                 url: 'vote-action.php',
-                data: formData,
+                data: {'language': selectedValue},
                 success: function (response) {
                     $('#modal-success').on('hidden.bs.modal', function () {
                         location.reload();

@@ -8,7 +8,6 @@
     <!-- CSS files -->
     <link href="./assets/css/tabler.min.css?1692870487" rel="stylesheet"/>
     <link href="./assets/css/tabler-flags.min.css?1692870487" rel="stylesheet"/>
-    <link href="./assets/css/tabler-payments.min.css?1692870487" rel="stylesheet"/>
     <link href="./assets/css/tabler-vendors.min.css?1692870487" rel="stylesheet"/>
     <style>
         @import url('https://rsms.me/inter/inter.css');
@@ -21,7 +20,6 @@
     </style>
 </head>
 <body  class=" d-flex flex-column">
-<script src="./assets/js/demo-theme.min.js?1692870487"></script>
 <div class="page page-center">
     <div class="container container-tight py-4">
         <form id="signupForm" class="card card-md" action="#" method="get" autocomplete="off" novalidate>
